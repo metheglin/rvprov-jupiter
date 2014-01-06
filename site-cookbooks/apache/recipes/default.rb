@@ -7,6 +7,22 @@
 # All rights reserved - Do Not Redistribute
 #
 
+yum_package "pcre-devel" do
+  action :install
+end
+
+yum_package "openssl-devel" do
+  action :install
+end
+
+cookbook_file "#{node['apache']['src_dir']}#{node['apr']['version']}.tar.gz" do
+  mode 0644
+end
+
+cookbook_file "#{node['apache']['src_dir']}#{node['apr_util']['version']}.tar.gz" do
+  mode 0644
+end
+
 cookbook_file "#{node['apache']['src_dir']}#{node['apache']['version']}.tar.gz" do
   mode 0644
 end
@@ -33,11 +49,29 @@ bash "install apache" do
   EOH
 end
 
+bash "teardown apache" do
+  user     node['apache']['install_user']
+  cwd      node['apache']['src_dir']
+  not_if   "ls #{node['apache']['symbolic']}"
+  code   <<-EOH
+    mkdir -p #{node['apache']['dir']}/conf/conf.d
+    ln -s #{node['apache']['dir']} #{node['apache']['symbolic']}
+  EOH
+end
+
 template "#{node['apache']['dir']}conf/httpd.conf" do
   source   "httpd.conf.erb"
   owner    node['apache']['install_user']
   group    node['apache']['install_group']
   mode     00644
+  notifies :run, 'bash[restart apache]', :immediately
+end
+
+template "#{node['apache']['dir']}conf/conf.d/localhost.conf" do
+  source "localhost.conf.erb"
+  owner node['apache']['install_user']
+  group node['apache']['install_group']
+  mode 00644
   notifies :run, 'bash[restart apache]', :immediately
 end
 

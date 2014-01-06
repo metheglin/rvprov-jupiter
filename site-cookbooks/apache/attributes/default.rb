@@ -9,6 +9,7 @@ default['apache']['version_serial'] = "2.4.6"
 default['apache']['version'] = "httpd-#{default['apache']['version_serial']}"
 
 # Directory
+default['apache']['symbolic'] = "/usr/local/apache"
 default['apache']['dir']     = "/usr/local/apache-#{default['apache']['version_serial']}/"
 default['apache']['src_dir'] = "/usr/local/src/"
 
@@ -17,13 +18,13 @@ default['apache']['install_user']  = "root"
 default['apache']['install_group'] = "root"
 
 # Configure Options
-default['apache']['configure']  = "--prefix=#{default['apache']['dir']} --enable-ssl --with-ssl --enable-rewrite=shared --enable-headers=shared --enable-so --with-mpm=prefork"
+default['apache']['configure']  = "--prefix=#{default['apache']['dir']} --enable-mpms-shared=all --enable-ssl --with-ssl --enable-rewrite=shared --enable-headers=shared --enable-so"
 
 # Include files
 default['apache']['include_files']  = [
   "httpd-mpm",
-  "httpd-vhosts",
-  "httpd-ssl"
+#  "httpd-vhosts",
+#  "httpd-ssl"
 ]
 
 
@@ -37,8 +38,8 @@ default['apache']['port_ssl']        = 443
 default['apache']['directory_index'] = "index.php, index.html"
 
 # User
-default['apache']['user']         = "www"
-default['apache']['group']        = "www"
+default['apache']['user']         = "daemon"
+default['apache']['group']        = "daemon"
 default['apache']['server_admin'] = "you@example.com"
 
 # Server

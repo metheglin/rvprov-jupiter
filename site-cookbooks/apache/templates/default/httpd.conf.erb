@@ -149,7 +149,7 @@ LoadModule dir_module modules/mod_dir.so
 #LoadModule userdir_module modules/mod_userdir.so
 LoadModule alias_module modules/mod_alias.so
 LoadModule rewrite_module modules/mod_rewrite.so
-LoadModule php5_module        modules/libphp5.so
+#LoadModule php5_module        modules/libphp5.so
 
 <IfModule unixd_module>
 #
@@ -447,7 +447,7 @@ LogLevel warn
 # necessary.
 
 # Server-pool management (MPM specific)
-#Include conf/extra/httpd-mpm.conf
+Include conf/extra/httpd-mpm.conf
 
 # Multi-language error messages
 #Include conf/extra/httpd-multilang-errordoc.conf
@@ -466,6 +466,7 @@ LogLevel warn
 
 # Virtual hosts
 #Include conf/extra/httpd-vhosts.conf
+Include conf/conf.d/*.conf
 
 # Local access to the Apache HTTP Server Manual
 #Include conf/extra/httpd-manual.conf
