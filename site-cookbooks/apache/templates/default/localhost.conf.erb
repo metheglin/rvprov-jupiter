@@ -1,7 +1,7 @@
 # VirtualHost of localhost
 
-<VirtualHost *:80>
-  ServerName localhost
+#<VirtualHost *:80>
+  ServerName localhost.localdomain:80
   DocumentRoot <%= node['apache']['dir'] %>htdocs
   <Directory <%= node['apache']['dir'] %>htdocs>
     # This relaxes Apache security settings.
@@ -18,4 +18,4 @@
   CustomLog "<%= node['apache']['access_log'] %>" common
   ErrorLog <%= node['apache']['error_log'] %>
 
-</VirtualHost>
+#</VirtualHost>

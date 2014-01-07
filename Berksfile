@@ -1,4 +1,5 @@
 site :opscode
 
+cookbook "mysql"
 cookbook "apache", path: "site-cookbooks/apache"
-#cookbook "mysql"
+cookbook "php", path: "site-cookbooks/php"

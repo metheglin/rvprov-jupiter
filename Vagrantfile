@@ -23,7 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  # config.vm.network :private_network, ip: "192.168.33.10"
+  config.vm.network :public_network #, :bridge => 'en0: Wi-Fi (AirPort)'
   config.vm.network :private_network, ip: "192.168.33.10"
 
   # Create a public network, which generally matched to bridged network.
@@ -122,16 +122,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision :chef_solo do |chef|
     chef.run_list = [
-        "apache"
+        "mysql::client",
+        "mysql::server",
+        "apache",
+        "php"
     ]
 
     chef.json = {
-       # mysql: {
-       #     server_root_password: "iloverandompasswordsbutthiswilldo",
-       #     server_repl_password: "iloverandompasswordsbutthiswilldo",
-       #     server_debian_password: "iloverandompasswordsbutthiswilldo",
-       #     bind_address: "127.0.0.1"
-       # }
+       mysql: {
+           server_root_password: "aaaaaa",
+           server_repl_password: "aaaaaa",
+           server_debian_password: "aaaaaa",
+           bind_address: "127.0.0.1"
+       }
     }
   end
 
