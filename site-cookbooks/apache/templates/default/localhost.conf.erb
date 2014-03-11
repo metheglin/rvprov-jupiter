@@ -1,6 +1,6 @@
 # VirtualHost of localhost
 
-#<VirtualHost *:80>
+<VirtualHost *:80>
   ServerName localhost.localdomain:80
   DocumentRoot <%= node['apache']['dir'] %>htdocs
   <Directory <%= node['apache']['dir'] %>htdocs>
@@ -8,14 +8,19 @@
     AllowOverride all
     # MultiViews must be turned off.
     Options -MultiViews
-    # Order
-    Order Deny,Allow
-    Deny from all
-    Allow from all
+
     Require all granted
   </Directory>
 
+  <IfModule mime_module>
+    AddType application/x-httpd-php .php
+  </IfModule>
+
+  <IfModule dir_module>
+    DirectoryIndex index.php index.html
+  </IfModule>
+  
   CustomLog "<%= node['apache']['access_log'] %>" common
   ErrorLog <%= node['apache']['error_log'] %>
 
-#</VirtualHost>
+</VirtualHost>

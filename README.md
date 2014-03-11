@@ -1,5 +1,5 @@
 # Support
-* CentOS6.X
+* CentOS6.5
 
 # TODO
 * iptables
