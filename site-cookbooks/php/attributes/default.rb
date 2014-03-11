@@ -5,7 +5,7 @@
 # Version
 default['libiconv']['version'] = "libiconv-1.14"
 default['re2c']['version'] = "re2c-0.13.5"
-default['php']['version'] = "php-5.3.19"
+default['php']['version'] = "php-5.5.4"
 
 # Directory
 default['php']['src_dir']    = "/usr/local/src/"
@@ -23,16 +23,15 @@ default['php']['install_group'] = "root"
 # skip --enable-bcmath
 # skip --with-pdo-mysql=/usr/local/mysql
 default['php']['configure'] = %W{--prefix=/usr/local/#{php['version']}
-                                 --enable-mbstring
                                  --with-apxs2=#{php['apache_dir']}bin/apxs
-                                 --with-zlib
-                                 --with-zlib-dir=/usr/lib64
-                                 --with-curl
                                  --with-mysql
-                                 --with-openssl
-                                 --with-pcre-regex
-                                 --with-mcrypt
-                                 --with-iconv=/usr/local}
+                                 --with-pdo-mysql
+                                 --with-mysqli=mysqlnd
+                                 --enable-mbstring
+                                 --enable-libgcc
+                                 --enable-pcntl
+                                 --with-zlib
+                                 --with-config-file-scan-dir=/usr/local/#{php['version']}/lib/conf.d}
 
 
 ###

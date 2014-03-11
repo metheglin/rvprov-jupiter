@@ -3,9 +3,9 @@
 ###
 
 # Version
-default['apr']['version'] = "apr-1.4.8"
-default['apr_util']['version'] = "apr-util-1.5.2"
-default['apache']['version_serial'] = "2.4.6"
+default['apr']['version'] = "apr-1.5.0"
+default['apr_util']['version'] = "apr-util-1.5.3"
+default['apache']['version_serial'] = "2.4.7"
 default['apache']['version'] = "httpd-#{default['apache']['version_serial']}"
 
 # Directory
@@ -18,7 +18,7 @@ default['apache']['install_user']  = "root"
 default['apache']['install_group'] = "root"
 
 # Configure Options
-default['apache']['configure']  = "--prefix=#{default['apache']['dir']} --enable-mpms-shared=all --enable-ssl --with-ssl --enable-rewrite=shared --enable-headers=shared --enable-so"
+default['apache']['configure']  = "--prefix=#{default['apache']['dir']} --enable-mpms-shared=all --enable-mods-shared=all --enable-ssl --enable-proxy --enable-cache --enable-mem-cache --enable-rewrite --with-included-apr"
 
 # Include files
 default['apache']['include_files']  = [

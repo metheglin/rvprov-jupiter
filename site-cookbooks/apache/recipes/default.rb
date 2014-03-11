@@ -59,20 +59,12 @@ bash "teardown apache" do
   EOH
 end
 
-template "#{node['apache']['dir']}conf/httpd.conf" do
-  source   "httpd.conf.erb"
-  owner    node['apache']['install_user']
-  group    node['apache']['install_group']
-  mode     00644
-  notifies :run, 'bash[restart apache]', :immediately
-end
-
 template "#{node['apache']['dir']}conf/conf.d/localhost.conf" do
   source "localhost.conf.erb"
   owner node['apache']['install_user']
   group node['apache']['install_group']
   mode 00644
-  notifies :run, 'bash[restart apache]', :immediately
+  #notifies :run, 'bash[restart apache]', :immediately
 end
 
 for include_file in node['apache']['include_files']
@@ -81,8 +73,16 @@ for include_file in node['apache']['include_files']
     owner    node['apache']['install_user']
     group    node['apache']['install_group']
     mode     00644
-    notifies :run, 'bash[restart apache]', :immediately
+    #notifies :run, 'bash[restart apache]', :immediately
   end
+end
+
+template "#{node['apache']['dir']}conf/httpd.conf" do
+  source   "httpd.conf.erb"
+  owner    node['apache']['install_user']
+  group    node['apache']['install_group']
+  mode     00644
+  notifies :run, 'bash[restart apache]', :immediately
 end
 
 bash "start apache" do

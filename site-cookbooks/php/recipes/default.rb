@@ -62,21 +62,21 @@ yum_package "libmcrypt-devel" do
   action :install
 end
 
-bash "install iconv" do
-  user  node['php']['install_user']
-  cwd   node['php']['src_dir']
-  not_if "ls /usr/local/bin/iconv"
-  code <<-EOH
-    tar xzf #{node['libiconv']['version']}.tar.gz
-    cd #{node['libiconv']['version']}
-    ./configure
-    make
-    make install
-
-    echo 'include /usr/local/lib' >> /etc/ld.so.conf
-    /sbin/ldconfig
-  EOH
-end
+#bash "install iconv" do
+#  user  node['php']['install_user']
+#  cwd   node['php']['src_dir']
+#  not_if "ls /usr/local/bin/iconv"
+#  code <<-EOH
+#    tar xzf #{node['libiconv']['version']}.tar.gz
+#    cd #{node['libiconv']['version']}
+#    ./configure
+#    make
+#    make install
+#
+#    echo 'include /usr/local/lib' >> /etc/ld.so.conf
+#    /sbin/ldconfig
+#  EOH
+#end
 
 bash "install re2c" do
   user  node['php']['install_user']
