@@ -31,6 +31,8 @@ default['php']['configure'] = %W{--prefix=/usr/local/#{php['version']}
                                  --enable-libgcc
                                  --enable-pcntl
                                  --with-zlib
+                                 --with-openssl
+                                 --with-curl
                                  --with-config-file-scan-dir=/usr/local/#{php['version']}/lib/conf.d}
 
 
